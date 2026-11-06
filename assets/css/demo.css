@@ -485,3 +485,30 @@ footer {
 .pre-loader > p {
     margin-left: 10px;
 }
+
+/****************** DEMO BANNER ******************/
+#demoBanner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000; /* Higher than the topnav (1039) */
+    background-color: #0d6efd; /* Bootstrap Primary */
+    color: white;
+    text-align: center;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+#demoBanner .btn-close {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.75rem;
+    filter: invert(1); /* Makes the black icon white */
+    opacity: 0.8;
+}
+#demoBanner .btn-close:hover {
+    opacity: 1;
+}
