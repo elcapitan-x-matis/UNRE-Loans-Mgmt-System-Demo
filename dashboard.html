@@ -4,30 +4,69 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Dashboard | UNRE LMS Portal</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
     
-    <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons 1.13 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
-    <!-- Custom Demo CSS -->
     <link rel="stylesheet" href="assets/css/demo.css">
     <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    
+    <style>
+        /* Custom styles specifically for the Landing Dashboard */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(1, 124, 22, 0.1) 0%, rgba(149, 106, 0, 0.1) 100%);
+            border-radius: 0;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #017c16;
+            margin-bottom: 15px;
+        }
+        .role-card {
+            border-left: 4px solid #956a00;
+            transition: transform 0.2s ease-in-out;
+        }
+        .role-card:hover {
+            transform: translateY(-5px);
+        }
+        .quick-link-btn {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #dee2e6;
+            color: #212529;
+            transition: all 0.2s;
+            background: #fff;
+        }
+        .quick-link-btn:hover {
+            background: #f8f9fa;
+            border-color: #017c16;
+            color: #017c16;
+            text-decoration: none;
+        }
+        .quick-link-btn i {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: #956a00;
+        }
+    </style>
 </head>
 <body class="sb-nav-fixed" id="bodyBg">
 
-    <!-- Top Navigation -->
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand ps-3" href="dashboard.html">
-            <i class="bi-shield-check text-success"></i> UNRE | LMS
-        </a>
+        <a class="navbar-brand ps-3" href="dashboard.html"><i class="bi-shield-check text-success"></i> UNRE | LMS</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="bi-list menu-btn"></i></button>
-        
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi-person-circle"></i>&nbsp;Hi, <span id="topbarUserName">User</span>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="#"><i class="bi-person-circle"></i>&nbsp;User Credentials</a></li>
                     <li><a class="dropdown-item" href="#"><i class="bi-key"></i>&nbsp;Change Password</a></li>
                     <li><hr class="dropdown-divider" /></li>
@@ -37,15 +76,11 @@
         </ul>
     </nav>
 
-    <!-- Main Layout -->
     <div id="layoutSidenav">
-        <!-- Sidebar Navigation (Populated by JS) -->
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
-                    <div class="nav" id="dynamicSidebar">
-                        <!-- JS will inject links here based on role -->
-                    </div>
+                    <div class="nav" id="dynamicSidebar"></div>
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
@@ -54,24 +89,151 @@
             </nav>
         </div>
 
-        <!-- Page Content -->
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
                     
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="display-3">Dashboard</h1>
+                    <!-- Hero Section -->
+                    <div class="hero-section">
+                        <h1 class="display-4" style="font-weight: 300;">Welcome to the UNRE LMS</h1>
+                        <p class="lead text-muted">Staff Loan Management System for the Bursary Department</p>
+                        <hr class="w-25 mx-auto">
+                        <p class="mb-0">Papua New Guinea University of Natural Resources and Environment</p>
                     </div>
 
-                    <!-- Admin Dashboard Placeholder -->
-                    <div class="col-sm-12">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                <h3 class="display-4">
-                                    <i class="bi-people"></i><br>
-                                    All Users
-                                </h3>
-                                <p class="text-muted">Placeholder for Admin/Executive Dashboard Content</p>
+                    <!-- System Overview -->
+                    <div class="row mb-5">
+                        <div class="col-lg-8 mx-auto text-center">
+                            <h3 class="mb-4">System Overview</h3>
+                            <p class="text-muted" style="font-size: 1.1rem;">
+                                This web application is designed to automate and streamline the management of staff loans within the university. It replaces traditional manual processes with a centralized, secure, and real-time digital platform, ensuring data integrity and enhancing the user experience for both administrators and staff members.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Core Features -->
+                    <h4 class="mb-4 border-bottom pb-2"><i class="bi bi-stars"></i> Core Features</h4>
+                    <div class="row text-center mb-5">
+                        <div class="col-md-3 col-sm-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body">
+                                    <i class="bi bi-calculator feature-icon"></i>
+                                    <h5>Automated Calculations</h5>
+                                    <p class="text-muted small">Instantly calculates loan totals, periodic payments, and penalty rates based on your inputs.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body">
+                                    <i class="bi bi-calendar-check feature-icon"></i>
+                                    <h5>Payment Scheduling</h5>
+                                    <p class="text-muted small">Automatically generates a complete repayment schedule when a loan is released.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body">
+                                    <i class="bi bi-shield-lock feature-icon"></i>
+                                    <h5>Secure Access</h5>
+                                    <p class="text-muted small">Granular role-based permissions ensure users only see what they are authorized to.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 mb-4">
+                            <div class="card h-100 border-0 shadow-sm">
+                                <div class="card-body">
+                                    <i class="bi bi-file-earmark-spreadsheet feature-icon"></i>
+                                    <h5>Bulk Importing</h5>
+                                    <p class="text-muted small">Save time by importing large batches of loans, payments, or customers via CSV.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Who Has Access -->
+                        <div class="col-lg-7 mb-4">
+                            <h4 class="mb-4 border-bottom pb-2"><i class="bi bi-people"></i> Who Has Access?</h4>
+                            
+                            <div class="card role-card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title"><i class="bi bi-shield-fill-check text-primary"></i> Super Administrator</h5>
+                                    <p class="card-text text-muted small">Full system control. Manages user accounts, sets granular permissions for staff, and reviews system-wide activity and login logs.</p>
+                                </div>
+                            </div>
+
+                            <div class="card role-card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title"><i class="bi bi-briefcase-fill text-success"></i> Executive Employee</h5>
+                                    <p class="card-text text-muted small">View-only access. Can review loan data, customer profiles, and generate transaction statements and reports.</p>
+                                </div>
+                            </div>
+
+                            <div class="card role-card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title"><i class="bi bi-person-badge-fill text-warning"></i> Officer Employee (Bursary Staff)</h5>
+                                    <p class="card-text text-muted small">The primary operators. Depending on permissions granted, they can add/edit loans, record payments, manage customers, and process bulk imports.</p>
+                                </div>
+                            </div>
+
+                            <div class="card role-card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title"><i class="bi bi-person-fill text-secondary"></i> Customer (Staff Member)</h5>
+                                    <p class="card-text text-muted small">Self-service portal. Can securely log in to view their own loan details, payment schedule, and transaction history.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Links -->
+                        <div class="col-lg-5 mb-4">
+                            <h4 class="mb-4 border-bottom pb-2"><i class="bi bi-link-45deg"></i> Quick Links</h4>
+                            <div class="row">
+                                <div class="col-12">
+                                    <a href="loans.html" class="quick-link-btn">
+                                        <i class="bi bi-stack"></i>
+                                        <div>
+                                            <h6 class="mb-0">Loans Registry</h6>
+                                            <small class="text-muted">View and manage all active and past loans.</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-12">
+                                    <a href="customers.html" class="quick-link-btn">
+                                        <i class="bi bi-people"></i>
+                                        <div>
+                                            <h6 class="mb-0">Customers Registry</h6>
+                                            <small class="text-muted">Browse staff profiles and their financial history.</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-12">
+                                    <a href="imports.html" class="quick-link-btn">
+                                        <i class="bi bi-upload"></i>
+                                        <div>
+                                            <h6 class="mb-0">Upload Bulk Data</h6>
+                                            <small class="text-muted">Import CSV files for loans, payments, or customers.</small>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-12">
+                                    <a href="users.html" class="quick-link-btn">
+                                        <i class="bi bi-person-gear"></i>
+                                        <div>
+                                            <h6 class="mb-0">User Accounts</h6>
+                                            <small class="text-muted">Manage system access and staff permissions.</small>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="card bg-light border-0 mt-4 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title"><i class="bi bi-info-circle"></i> Need Help?</h5>
+                                    <p class="card-text small">For technical support or inquiries regarding your loan, please contact the ICT Department or the Bursary Office.</p>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Contact Support</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -89,14 +251,9 @@
         </div>
     </div>
 
-    <!-- Scroll to Top Button -->
-    <button onclick="topFunction()" id="scroll-btn" class="btn btn-dark">
-        <i class="bi-arrow-up-circle"></i>
-    </button>
+    <button onclick="topFunction()" id="scroll-btn" class="btn btn-dark"><i class="bi-arrow-up-circle"></i></button>
 
-    <!-- Bootstrap Bundle (Includes Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom Demo JS -->
     <script src="assets/js/demo.js"></script>
 </body>
 </html>

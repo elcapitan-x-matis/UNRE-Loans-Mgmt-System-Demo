@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Loan Payments Schedule | UNRE LMS Portal</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+    <link href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/3.0.1/css/buttons.bootstrap5.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/demo.css">
+</head>
+<body class="sb-nav-fixed" id="bodyBg">
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="dashboard.html"><i class="bi-shield-check text-success"></i> UNRE | LMS</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="bi-list menu-btn"></i></button>
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi-person-circle"></i>&nbsp;Hi, <span id="topbarUserName">User</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="bi-person-circle"></i>&nbsp;User Credentials</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi-key"></i>&nbsp;Change Password</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="bi-arrow-right-circle"></i>&nbsp;Sign Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+                <div class="sb-sidenav-menu"><div class="nav" id="dynamicSidebar"></div></div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    <i class="bi-person"></i>&nbsp;<span id="sidebarUserName">User</span>
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h2>Loan Payments Schedule</h2>
+                        <small class="text-muted">Ref No. <span id="header_loanID">-</span></small>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                <a role="button" class="btn btn-sm btn-outline-secondary" href="loan-view.html" id="btnGoBack"><i class="bi-arrow-left-circle"></i>&nbsp;Go Back</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            <!-- Alert if loan is not released (hidden by default) -->
+                            <div class="alert alert-warning" role="alert" id="notReleasedAlert" style="display: none;">
+                                <i class="bi-info-circle"></i>&nbsp;This loan has not been released to form a schedule
+                            </div>
+
+                            <div class="table-responsive" id="scheduleTableContainer">
+                                <table class="table table-md table-striped" id="scheduleTable" width="100%" cellspacing="0">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Payment #</th>
+                                            <th>Paid Status</th>
+                                            <th>Due Date</th>
+                                            <th>Overdue Status</th>
+                                            <th>Loan Ref No.</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot class="text-center">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Payment #</th>
+                                            <th>Paid Status</th>
+                                            <th>Due Date</th>
+                                            <th>Overdue Status</th>
+                                            <th>Loan Ref No.</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; PNG UNRE Loans Management System (Demo) 2024</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
+
+    <script src="assets/js/demo.js"></script>
+    <script src="assets/js/data-engine.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const loaded = await loadDatabase();
+            if (!loaded) return;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const loanID = urlParams.get('id') || "00000002"; // Default to a Released loan
+
+            const loan = DB.loans.find(l => l.loanID == loanID);
+            if (!loan) {
+                alert("Loan not found!");
+                window.location.href = "loans.html";
+                return;
+            }
+
+            // Update Header and Back Button Link
+            document.getElementById('header_loanID').innerText = loan.loanID;
+            document.getElementById('btnGoBack').href = `loan-view.html?id=${loan.loanID}`;
+
+            // Check if the loan has been released
+            if (loan.status !== "Released" && loan.status !== "Completed") {
+                document.getElementById('notReleasedAlert').style.display = 'block';
+                document.getElementById('scheduleTableContainer').style.display = 'none';
+                return;
+            }
+
+            // Generate the Schedule Data (Mimics PHP logic)
+            const scheduleData = generateMockSchedule(loan);
+
+            // Initialize DataTable
+            $('#scheduleTable').DataTable({
+                data: scheduleData,
+                columns: [
+                    { data: 'payNo', className: 'text-center' },
+                    { data: 'paymentNum', className: 'text-center' },
+                    { data: 'paidStatus', className: 'text-center' },
+                    { data: 'dueDate', className: 'text-center' },
+                    { data: 'overdueStatus', className: 'text-center' },
+                    { data: 'loanID', className: 'text-center' }
+                ],
+                dom: 'Bfrtip',
+                buttons: [
+                    { extend: 'copy', className: 'btn btn-sm btn-secondary' },
+                    { extend: 'csv', className: 'btn btn-sm btn-secondary' },
+                    { extend: 'excel', className: 'btn btn-sm btn-secondary' },
+                    { extend: 'pdf', className: 'btn btn-sm btn-secondary' },
+                    { extend: 'print', className: 'btn btn-sm btn-secondary' }
+                ],
+                pageLength: 10,
+                order: [[0, 'asc']] // Order by ID (payNo) ascending
+            });
+        });
+
+        // Helper function to generate the schedule based on loan parameters
+        function generateMockSchedule(loan) {
+            const schedule = [];
+            const totalPayments = calc_total_number_payments(loan.duration, loan.payments_period);
+            
+            // Start date (assuming date_released is the start)
+            let startDate = new Date(loan.date_released);
+            
+            // Mocking payments that have been made (from Phase 3 data)
+            // In a real app, this would query the 'payment' table
+            const mockMadePayments = {
+                'P1/2015': 'Early',
+                'P2/2015': 'Early',
+                'P3/2015': 'Early',
+                'P4/2015': 'Overdue',
+                'P5/2015': 'Early',
+                'P6/2015': 'Overdue'
+            };
+
+            for (let i = 1; i <= totalPayments; i++) {
+                // Calculate due date based on period
+                let dueDate = new Date(startDate);
+                if (loan.payments_period === "Monthly") {
+                    dueDate.setMonth(startDate.getMonth() + i);
+                } else {
+                    // Fortnightly (14 days)
+                    dueDate.setDate(startDate.getDate() + (i * 14));
+                }
+
+                const year = dueDate.getFullYear();
+                const paymentNum = `P${i}/${year}`;
+
+                // Check if paid
+                let paidStatus = `<span class="badge bg-warning rounded-pill">Not Paid</span>`;
+                let overdueStatus = '--- ---';
+
+                if (mockMadePayments[paymentNum]) {
+                    paidStatus = `<span class="badge bg-success rounded-pill">Paid</span>`;
+                    if (mockMadePayments[paymentNum] === 'Overdue') {
+                        overdueStatus = `<span class="badge bg-danger rounded-pill">Overdue</span>`;
+                    } else {
+                        overdueStatus = `<span class="badge bg-success rounded-pill">Early</span>`;
+                    }
+                }
+
+                schedule.push({
+                    payNo: i,
+                    paymentNum: paymentNum,
+                    paidStatus: paidStatus,
+                    dueDate: short_date_toText(dueDate.toISOString()),
+                    overdueStatus: overdueStatus,
+                    loanID: loan.loanID
+                });
+            }
+
+            return schedule;
+        }
+    </script>
+</body>
+</html>

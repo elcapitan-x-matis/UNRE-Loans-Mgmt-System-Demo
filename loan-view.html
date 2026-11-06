@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Loan Application | UNRE LMS Portal</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+    <link href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/demo.css">
+    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+</head>
+<body class="sb-nav-fixed" id="bodyBg">
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="dashboard.html"><i class="bi-shield-check text-success"></i> UNRE | LMS</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="bi-list menu-btn"></i></button>
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi-person-circle"></i>&nbsp;Hi, <span id="topbarUserName">User</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="bi-person-circle"></i>&nbsp;User Credentials</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi-key"></i>&nbsp;Change Password</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="bi-arrow-right-circle"></i>&nbsp;Sign Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+                <div class="sb-sidenav-menu"><div class="nav" id="dynamicSidebar"></div></div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    <i class="bi-person"></i>&nbsp;<span id="sidebarUserName">User</span>
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h2>Loan Application</h2>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#printInvoiceModal"><i class="bi-printer"></i>&nbsp;Print Invoice</button>
+                            </div>
+                            <div class="btn-group me-2" id="actionButtons"></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <h5><i class="bi-info-circle"></i>&nbsp;Loan Details</h5>
+                                <table class="table table-sm table-borderless">
+                                    <tbody>
+                                        <tr><th>Ref No.</th><td id="lbl_loanID">-</td><th>Purpose</th><td id="lbl_purpose">-</td></tr>
+                                        <tr><th>Description</th><td id="lbl_memo">-</td><th>Loan Period</th><td id="lbl_duration">-</td></tr>
+                                        <tr><th>Customer</th><td id="lbl_customer">-</td><th>Periods per Payment</th><td id="lbl_payments_period">-</td></tr>
+                                        <tr><th>Date Released</th><td id="lbl_date_released">-</td><th>Amount</th><td id="lbl_amount">-</td></tr>
+                                        <tr><th>Date Closed</th><td id="lbl_date_closed">-</td><th>Total Interest Applied</th><td id="lbl_interest">-</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="table-responsive">
+                                <h5><i class="bi-cash-stack"></i>&nbsp;Payment Details</h5>
+                                <table class="table table-sm table-borderless">
+                                    <tbody>
+                                        <tr><th>Total Payable Amount</th><td id="lbl_total">-</td></tr>
+                                        <tr><th>Total No. of Payments</th><td id="lbl_total_num_payments">-</td></tr>
+                                        <tr><th>No. of Payments per year</th><td id="lbl_payments_per_year">-</td></tr>
+                                        <tr><th id="lbl_payable_period">Payable Amount</th><td id="lbl_payable_amt">-</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="table-responsive">
+                                <h5><i class="bi-exclamation-diamond"></i>&nbsp;Penalty Charge Details</h5>
+                                <table class="table table-sm table-borderless">
+                                    <tbody>
+                                        <tr><th>Penalty Rate</th><td id="lbl_penalty_rate">-</td></tr>
+                                        <tr><th>Penalty Charge</th><td id="lbl_penalty_amt">-</td></tr>
+                                        <tr><td colspan="2"><small class="text-muted">This will be applied if the payment is overdue the payback due date</small></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h5>Loan Status</h5>
+                        <h6 id="lbl_status_badge">-</h6>
+                        <div class="btn-toolbar mb-2 mb-md-0" id="statusButtonContainer"></div>
+                    </div>
+
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h2>Payments</h2>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                <a href="loan-schedule.html?id=00000002" role="button" class="btn btn-sm btn-outline-primary"><i class="bi-table"></i>&nbsp;View Payments Schedule</a>
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newPayment" id="btnNewPayment"><i class="bi-cash"></i>&nbsp;Receive New Payment</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="lead">Total of Payments Applied:&nbsp;<span id="lbl_amount_applied">-</span></p>
+                            <div class="table-responsive">
+                                <table class="table table-md table-striped" id="paymentsTable" width="100%" cellspacing="0">
+                                    <thead class="text-center">
+                                        <tr><th>ID</th><th>Payment #</th><th>Date</th><th>Status</th><th>Amount</th><th>Penalty Charge</th><th>Total Payable</th><th>Customer</th></tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; PNG UNRE Loans Management System (Demo) 2024</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal fade" id="printInvoiceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Loan Invoice</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <section id="invoiceReport">
+                        <p class="text-muted">Papua New Guinea University of Natural Resources and Environment<br>Christmas Club A/C<br>Private Mail Bag Service<br>Kokopo<br>East New Britain Province</p>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-borderless">
+                                <tbody>
+                                    <tr class="bg-dark"><th>Invoice No.</th><td>12345678</td><th>Invoice Date</th><td id="inv_date">-</td></tr>
+                                    <tr class="bg-dark"><th colspan="2">Loan Information</th><th colspan="2">Invoiced To</th></tr>
+                                    <tr><th>Ref No.</th><td id="inv_loanID">-</td><th>Name</th><td id="inv_customer">-</td></tr>
+                                    <tr><th>Memo</th><td id="inv_memo">-</td><th>Address</th><td id="inv_address">-</td></tr>
+                                </tbody>
+                            </table>
+                            <table class="table table-sm table-borderless">
+                                <thead class="bg-dark text-center"><tr><th>Description</th><th>Amount</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Loan Amount</td><td class="text-center" id="inv_amount">-</td></tr>
+                                    <tr><td>Interest Added</td><td class="text-center" id="inv_interest">-</td></tr>
+                                </tbody>
+                                <tfoot class="bg-light">
+                                    <tr><th class="text-right">Total</th><td class="text-center" id="inv_total">-</td></tr>
+                                    <tr><th class="text-right">Payback Amount Applied</th><td class="text-center" id="inv_applied">-</td></tr>
+                                    <tr><th class="text-right">Amount Due</th><td class="text-center" id="inv_due">-</td></tr>
+                                    <tr><th class="text-right">FINAL CHARGE</th><th class="text-center" id="inv_final">-</th></tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="printJS({ printable: 'invoiceReport', type: 'html', header: 'Loan Invoice'})"><i class="bi-printer"></i>&nbsp;Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="newPayment" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Receive New Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form onsubmit="handleMockPayment(event)">
+                    <div class="modal-body">
+                        <h6 class="text-muted">Loan Ref No. <span id="pay_modal_loanID">-</span></h6>
+                        <div class="form-group">
+                            <label>Memo</label>
+                            <input type="text" class="form-control form-control-sm" id="pay_memo" readonly>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label>Payment Number</label>
+                                <input type="text" class="form-control form-control-sm" id="pay_paymentNum" readonly>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label>Payment Due Date</label>
+                                <input type="date" class="form-control form-control-sm" id="pay_due_date" readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label>Actual Date of Payment Made&nbsp;<i class="bi-asterisk alertMessage"></i></label>
+                                <input type="date" class="form-control form-control-sm" id="pay_date" required>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label>Amount Paid&nbsp;<i class="bi-asterisk alertMessage"></i></label>
+                                <input type="number" step="any" class="form-control form-control-sm" id="pay_amount" min="0" required>
+                            </div>
+                        </div>
+                        <p id="payFormAlert" class="alertMessage text-center"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group me-2">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="bi-save"></i>&nbsp;Record</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal"><i class="bi-x-circle"></i>&nbsp;Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <script src="assets/js/demo.js"></script>
+    <script src="assets/js/data-engine.js"></script>
+
+    <script>
+        let currentLoanData = null;
+        document.addEventListener('DOMContentLoaded', async () => {
+            const loaded = await loadDatabase();
+            if (!loaded) return;
+            const urlParams = new URLSearchParams(window.location.search);
+            const loanID = urlParams.get('id') || "00000002";
+            currentLoanData = getLoanViewData(loanID);
+            if (!currentLoanData) { alert("Loan not found!"); window.location.href = "loans.html"; return; }
+            populateLoanView(currentLoanData);
+            initializePaymentsTable(currentLoanData.loan.loanID);
+            setupMockPaymentModal(currentLoanData);
+        });
+        function populateLoanView(data) {
+            const l = data.loan; const c = data.customer; const t = data.transaction;
+            document.getElementById('lbl_loanID').innerText = l.loanID;
+            document.getElementById('lbl_purpose').innerText = l.purpose || "N/A";
+            document.getElementById('lbl_memo').innerText = t.memo;
+            document.getElementById('lbl_duration').innerText = `${l.duration} Year(s)`;
+            document.getElementById('lbl_customer').innerHTML = `<a href="customer-view.html?id=${c.customerID}">${c.lastname}, ${c.firstname}</a>`;
+            document.getElementById('lbl_payments_period').innerText = l.payments_period;
+            document.getElementById('lbl_date_released').innerText = data.dateReleased;
+            document.getElementById('lbl_amount').innerText = data.f_amount;
+            document.getElementById('lbl_date_closed').innerText = data.dateClosed;
+            document.getElementById('lbl_interest').innerText = data.f_interest;
+            document.getElementById('lbl_total').innerText = data.f_total;
+            document.getElementById('lbl_total_num_payments').innerText = `${data.total_num_payments} Payments`;
+            document.getElementById('lbl_payments_per_year').innerText = `${l.payments_per_year} Payments`;
+            document.getElementById('lbl_payable_period').innerText = `${l.payments_period} Payable Amount`;
+            document.getElementById('lbl_payable_amt').innerText = data.f_payable;
+            document.getElementById('lbl_penalty_rate').innerText = `${l.penalty_rate} %`;
+            document.getElementById('lbl_penalty_amt').innerText = data.f_penalty;
+            document.getElementById('lbl_status_badge').innerHTML = data.statusBadge;
+            document.getElementById('lbl_amount_applied').innerText = data.f_applied;
+
+            const actionContainer = document.getElementById('actionButtons');
+            const statusContainer = document.getElementById('statusButtonContainer');
+            if (l.status === "Pending") {
+                actionContainer.innerHTML = `<a role="button" class="btn btn-sm btn-outline-primary" href="loan-edit.html?id=${l.loanID}"><i class="bi-pencil-square"></i>&nbsp;Edit Loan</a><button type="button" class="btn btn-sm btn-outline-danger ms-2" onclick="alert('Mock Remove Loan')"><i class="bi-trash"></i>&nbsp;Remove Loan</button>`;
+            }
+            statusContainer.innerHTML = `<button type="button" class="btn btn-sm btn-outline-primary" onclick="alert('Mock Update Status')"><i class="bi-pencil-square"></i>&nbsp;Update Status</button>`;
+            if (l.status !== "Released" && l.status !== "Completed") { document.getElementById('btnNewPayment').disabled = true; }
+
+            document.getElementById('inv_date').innerText = date_toText(new Date().toISOString());
+            document.getElementById('inv_loanID').innerText = l.loanID;
+            document.getElementById('inv_customer').innerText = `${c.lastname}, ${c.firstname}`;
+            document.getElementById('inv_memo').innerText = t.memo;
+            document.getElementById('inv_address').innerText = c.address;
+            document.getElementById('inv_amount').innerText = data.f_amount;
+            document.getElementById('inv_interest').innerText = data.f_interest;
+            document.getElementById('inv_total').innerText = data.f_total;
+            document.getElementById('inv_applied').innerText = data.f_applied;
+            document.getElementById('inv_due').innerText = data.f_due;
+            document.getElementById('inv_final').innerText = data.f_due;
+        }
+        function initializePaymentsTable(loanID) {
+            const mockPayments = [
+                { id: 293, num: 'P1/2015', date: '2015-07-19', status: 'Early', amount: 155.47, penalty: 0.00, total: 155.47 },
+                { id: 294, num: 'P2/2015', date: '2015-08-19', status: 'Early', amount: 155.47, penalty: 0.00, total: 155.47 },
+                { id: 296, num: 'P4/2015', date: '2015-10-25', status: 'Overdue', amount: 155.47, penalty: 18.66, total: 174.13 }
+            ];
+            $('#paymentsTable').DataTable({
+                data: mockPayments,
+                columns: [
+                    { data: 'id', className: 'text-center' },
+                    { data: 'num', className: 'text-center', render: function(d){ return `<a href="#">${d}&nbsp;<i class="bi-arrow-right-circle"></i></a>`} },
+                    { data: 'date', className: 'text-center' },
+                    { data: 'status', className: 'text-center', render: function(d) { let type = d === 'Overdue' ? 'danger' : 'success'; return `<span class="badge bg-${type} rounded-pill">${d}</span>`; }},
+                    { data: 'amount', className: 'text-center', render: function(d){ return format_number(d) } },
+                    { data: 'penalty', className: 'text-center', render: function(d){ return format_number(d) } },
+                    { data: 'total', className: 'text-center', render: function(d){ return format_number(d) } },
+                    { data: 'id', className: 'text-center', render: function(d){ return `<a href="#">00000002</a>`} }
+                ],
+                dom: 'frtip',
+                pageLength: 10
+            });
+        }
+        function setupMockPaymentModal(data) {
+            const l = data.loan; const c = data.customer;
+            document.getElementById('pay_modal_loanID').innerText = l.loanID;
+            document.getElementById('pay_memo').value = `Payment; ${c.lastname}, ${c.firstname}`;
+            document.getElementById('pay_paymentNum').value = "P7/2015";
+            document.getElementById('pay_due_date').value = "2016-01-19";
+            document.getElementById('pay_date').value = new Date().toISOString().split('T')[0];
+        }
+        function handleMockPayment(event) {
+            event.preventDefault();
+            const alertBox = document.getElementById('payFormAlert');
+            alertBox.innerHTML = '<span class="text-primary">Processing...</span>';
+            setTimeout(() => {
+                alertBox.innerHTML = '<span class="text-success">Payment recorded successfully! (Mock)</span>';
+                setTimeout(() => { $('#newPayment').modal('hide'); alertBox.innerHTML = ''; }, 1000);
+            }, 800);
+        }
+    </script>
+</body>
+</html>

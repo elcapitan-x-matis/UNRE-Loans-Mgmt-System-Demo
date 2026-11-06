@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>My Transactions | UNRE LMS Portal</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+    <link href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+    <link rel="stylesheet" href="assets/css/demo.css">
+</head>
+<body class="sb-nav-fixed" id="bodyBg">
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="dashboard.html"><i class="bi-shield-check text-success"></i> UNRE | LMS</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="bi-list menu-btn"></i></button>
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi-person-circle"></i>&nbsp;Hi, <span id="topbarUserName">User</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="bi-key"></i>&nbsp;Change Password</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="bi-arrow-right-circle"></i>&nbsp;Sign Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+                <div class="sb-sidenav-menu"><div class="nav" id="dynamicSidebar"></div></div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    <i class="bi-person"></i>&nbsp;<span id="sidebarUserName">User</span>
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1>Transaction History</h1>
+                        <small class="text-muted" id="header_customer_name">-</small>
+                        <!-- No Back button for customers -->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            
+                            <!-- Tab Navigation -->
+                            <nav>
+                                <div class="nav nav-pills mb-3" id="nav-tab" role="tablist">
+                                    <button class="nav-link active" id="nav-statement-tab" data-bs-toggle="tab" data-bs-target="#nav-statement" type="button" role="tab" aria-controls="nav-statement" aria-selected="true"><i class="bi-file-earmark-text"></i>&nbsp;View as Statement</button>
+                                    <button class="nav-link" id="nav-datatable-tab" data-bs-toggle="tab" data-bs-target="#nav-datatable" type="button" role="tab" aria-controls="nav-datatable" aria-selected="false"><i class="bi-table"></i>&nbsp;View as Data Table</button>
+                                </div>
+                            </nav>
+
+                            <!-- Tab Content -->
+                            <div class="tab-content" id="nav-tabContent">
+                                
+                                <!-- Statement View -->
+                                <div class="tab-pane fade show active" id="nav-statement" role="tabpanel" aria-labelledby="nav-statement-tab">
+                                    <div class="card">
+                                        <div class="card-header text-end">
+                                            <div class="btn-group me-2">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="printJS({ printable: 'statementReport', type: 'html', header: 'Transaction Statement'})"><i class="bi-printer"></i>&nbsp;Print</button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <section id="statementReport">
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <img src="assets/favicon/android-chrome-192x192.png" class="img-fluid rounded-circle" width="100" height="100">
+                                                    </div>
+                                                    <div class="col-sm-10">
+                                                        <p class="text-muted"><i>
+                                                            Papua New Guinea University of Natural Resources and Environment<br>
+                                                            Christmas Club A/C<br>
+                                                            Private Mail Bag Service<br>
+                                                            Kokopo<br>
+                                                            East New Britain Province
+                                                        </i></p>
+                                                    </div>
+                                                </div>
+
+                                                <h4>Statement</h4><hr>
+
+                                                <div class="table-responsive">
+                                                    <table class="table table-sm table-borderless">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Statement No.</th>
+                                                                <td>98765432</td>
+                                                                <th class="text-end">Statement Date</th>
+                                                                <td id="stmt_date">-</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Customer</th>
+                                                                <td id="stmt_customer">-</td>
+                                                                <td colspan="2"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                    <div data-bs-spy="scroll" data-bs-offset="0" class="scrollspy" tabindex="0">
+                                                        <table class="table table-sm table-striped">
+                                                            <thead class="text-center">
+                                                                <tr><th>Date</th><th>Ref No.</th><th>Description</th><th>Charges</th><th>Payments</th><th>Balance</th></tr>
+                                                            </thead>
+                                                            <tfoot class="bg-dark">
+                                                                <tr class="text-center"><th>Date</th><th>Ref No.</th><th>Description</th><th>Charges</th><th>Payments</th><th>Balance</th></tr>
+                                                                <tr class="bg-light">
+                                                                    <th class="text-center" id="stmt_final_date">-</th>
+                                                                    <th colspan="4" class="text-end">Final Charge</th>
+                                                                    <th class="text-center" id="stmt_final_balance">-</th>
+                                                                </tr>
+                                                            </tfoot>
+                                                            <tbody class="text-center" id="stmt_tbody"></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Data Table View -->
+                                <div class="tab-pane fade" id="nav-datatable" role="tabpanel" aria-labelledby="nav-datatable-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-striped" id="dataTable" width="100%" cellspacing="0">
+                                            <thead class="text-center">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Date</th>
+                                                    <th>Ref No.</th>
+                                                    <th>Description</th>
+                                                    <th>Charges</th>
+                                                    <th>Payments</th>
+                                                    <th>Balance</th>
+                                                    <th>Customer PO#</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot class="text-center">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Date</th>
+                                                    <th>Ref No.</th>
+                                                    <th>Description</th>
+                                                    <th>Charges</th>
+                                                    <th>Payments</th>
+                                                    <th>Balance</th>
+                                                    <th>Customer PO#</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; PNG UNRE Loans Management System (Demo) 2024</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    
+    <script src="assets/js/demo.js"></script>
+    <script src="assets/js/data-engine.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const loaded = await loadDatabase();
+            if (!loaded) return;
+
+            // Customer ID is locked to 246 (James Watson) for this demo
+            const customerID = 246;
+            const customer = getCustomerDetails(customerID);
+            
+            // Populate Header & Statement Details
+            document.getElementById('header_customer_name').innerText = `${customer.lastname}, ${customer.firstname}`;
+            document.getElementById('stmt_date').innerText = date_toText(new Date().toISOString());
+            document.getElementById('stmt_customer').innerHTML = `
+                ${customer.lastname}, ${customer.firstname}<br>
+                ${customer.address}<br>
+                ${customer.email}
+            `;
+
+            // Fetch transactions for this customer
+            const customerTransactions = DB.transactions.filter(t => t.customerID == customerID);
+            
+            // 1. Render Statement View
+            renderStatementRows(customerTransactions);
+
+            // 2. Render DataTable View
+            renderDataTable(customerTransactions);
+        });
+
+        function renderStatementRows(transactions) {
+            const tbody = document.getElementById('stmt_tbody');
+            tbody.innerHTML = '';
+            
+            let lastBalance = 0;
+            let lastDate = '-';
+
+            transactions.forEach(t => {
+                const loan = DB.loans.find(l => l.transactionID == t.transactionID);
+                let row = '';
+
+                if (loan && (loan.status === "Released" || loan.status === "Completed")) {
+                    row = `
+                        <tr>
+                            <td>${short_date_toText(t.date)}</td>
+                            <td>${loan.loanID}</td>
+                            <td>${t.memo}</td>
+                            <td>${format_number(loan.total)}</td>
+                            <td>&nbsp;</td>
+                            <td>${format_number(t.balance)}</td>
+                        </tr>
+                    `;
+                    lastBalance = t.balance;
+                    lastDate = t.date;
+                } else if (t.memo.includes("Payment")) {
+                    row = `
+                        <tr>
+                            <td>${short_date_toText(t.date)}</td>
+                            <td>P1/2015</td>
+                            <td>${t.memo}</td>
+                            <td>&nbsp;</td>
+                            <td>${format_number(155.47)}</td>
+                            <td>${format_number(t.balance)}</td>
+                        </tr>
+                    `;
+                    lastBalance = t.balance;
+                    lastDate = t.date;
+                }
+
+                if (row) tbody.innerHTML += row;
+            });
+
+            document.getElementById('stmt_final_date').innerText = short_date_toText(lastDate);
+            document.getElementById('stmt_final_balance').innerText = format_number(lastBalance);
+        }
+
+        function renderDataTable(transactions) {
+            const tableData = [];
+
+            transactions.forEach(t => {
+                const loan = DB.loans.find(l => l.transactionID == t.transactionID);
+                
+                if (loan && (loan.status === "Released" || loan.status === "Completed")) {
+                    tableData.push({
+                        id: t.transactionID,
+                        date: short_date_toText(t.date),
+                        ref: loan.loanID,
+                        desc: t.memo,
+                        charges: format_number(loan.total),
+                        payments: '&nbsp;',
+                        balance: format_number(t.balance),
+                        customer: t.customerID
+                    });
+                } else if (t.memo.includes("Payment")) {
+                    tableData.push({
+                        id: t.transactionID,
+                        date: short_date_toText(t.date),
+                        ref: 'P1/2015',
+                        desc: t.memo,
+                        charges: '&nbsp;',
+                        payments: format_number(155.47),
+                        balance: format_number(t.balance),
+                        customer: t.customerID
+                    });
+                }
+            });
+
+            $('#dataTable').DataTable({
+                data: tableData,
+                columns: [
+                    { data: 'id', className: 'text-center' },
+                    { data: 'date', className: 'text-center' },
+                    { data: 'ref', className: 'text-center' },
+                    { data: 'desc', className: 'text-center' },
+                    { data: 'charges', className: 'text-center' },
+                    { data: 'payments', className: 'text-center' },
+                    { data: 'balance', className: 'text-center' },
+                    { data: 'customer', className: 'text-center' }
+                ],
+                dom: 'frtip',
+                pageLength: 10
+            });
+        }
+    </script>
+</body>
+</html>

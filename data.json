@@ -1,0 +1,27 @@
+{
+  "users": [
+    {"userID": 2200000, "firstname": "Super", "lastname": "ADMINISTRATOR", "username": "admin", "roleID": 1},
+    {"userID": 2200001, "firstname": "Edward", "lastname": "LAKI", "username": "elaki", "roleID": 2},
+    {"userID": 2200002, "firstname": "Nerrie", "lastname": "MOVEH", "username": "nmoveh", "roleID": 3},
+    {"userID": 2200004, "firstname": "James", "lastname": "WATSON", "username": "jwatson", "roleID": 4},
+    {"userID": 2200016, "firstname": "Aurthur", "lastname": "CURRY", "username": "acurry", "roleID": 4},
+    {"userID": 2200003, "firstname": "Michael", "lastname": "JONES", "username": "mjones", "roleID": 4}
+  ],
+  "customers": [
+    {"customerID": 246, "address": "P.O BOX 333, Rabaul, ENBP", "phone1": "75245263", "userID": 2200004, "active": 1},
+    {"customerID": 461, "address": "P.O Box 936, Kokopo, ENBP", "phone1": "78895986", "userID": 2200016, "active": 1},
+    {"customerID": 633, "address": "P.O BOX 191, Kokopo, ENBP", "phone1": "75523654", "userID": 2200003, "active": 1}
+  ],
+  "loans": [
+    {"loanID": "00000001", "purpose": "Personal Loan", "duration": 8, "payments_period": "Monthly", "payments_per_year": 12, "amount": 10000.00, "interest": 867.20, "total": 10867.20, "amount_due": 10867.20, "amount_applied": 0.00, "penalty_rate": 15, "status": "Approved", "date_released": null, "transactionID": 100000001},
+    {"loanID": "00000002", "purpose": "Personal Loan", "duration": 3, "payments_period": "Monthly", "payments_per_year": 12, "amount": 5000.00, "interest": 596.98, "total": 5596.98, "amount_due": 4664.16, "amount_applied": 932.82, "penalty_rate": 12, "status": "Released", "date_released": "2015-06-19", "transactionID": 100000002},
+    {"loanID": "00000003", "purpose": "Personal Loan", "duration": 2, "payments_period": "Fortnightly", "payments_per_year": 26, "amount": 4500.00, "interest": 373.61, "total": 4873.61, "amount_due": 4873.61, "amount_applied": 0.00, "penalty_rate": 10, "status": "Approved", "date_released": null, "transactionID": 100000003},
+    {"loanID": "00000004", "purpose": "Personal Loan", "duration": 5, "payments_period": "Fortnightly", "payments_per_year": 26, "amount": 5000.00, "interest": 1363.15, "total": 6363.15, "amount_due": 6363.15, "amount_applied": 0.00, "penalty_rate": 10, "status": "Pending", "date_released": null, "transactionID": 100000010}
+  ],
+  "transactions": [
+    {"transactionID": 100000001, "memo": "Loan; WATSON, James", "customerID": 246, "date": null, "balance": null},
+    {"transactionID": 100000002, "memo": "Loan; CURRY, Aurthur", "customerID": 461, "date": "2015-06-19", "balance": 5596.98},
+    {"transactionID": 100000003, "memo": "Loan; JONES, Michael", "customerID": 633, "date": null, "balance": null},
+    {"transactionID": 100000010, "memo": "Loan; JOHNS, Nathan", "customerID": 1987, "date": null, "balance": null}
+  ]
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>User Profile | UNRE LMS Portal</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/demo.css">
+</head>
+<body class="sb-nav-fixed" id="bodyBg">
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="dashboard.html"><i class="bi-shield-check text-success"></i> UNRE | LMS</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="bi-list menu-btn"></i></button>
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi-person-circle"></i>&nbsp;Hi, <span id="topbarUserName">User</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="bi-person-circle"></i>&nbsp;User Credentials</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi-key"></i>&nbsp;Change Password</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="bi-arrow-right-circle"></i>&nbsp;Sign Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+                <div class="sb-sidenav-menu"><div class="nav" id="dynamicSidebar"></div></div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    <i class="bi-person"></i>&nbsp;<span id="sidebarUserName">User</span>
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h2>User Profile</h2>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                <a role="button" class="btn btn-sm btn-outline-primary" href="user-edit.html"><i class="bi-pencil-square"></i>&nbsp;Edit User</a>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="alert('Mock Remove User')"><i class="bi-trash"></i>&nbsp;Remove User</button>
+                            </div>
+                            <a role="button" class="btn btn-sm btn-primary" href="users.html"><i class="bi-arrow-left-circle"></i>&nbsp;Back</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><i class="bi-person-circle"></i>&nbsp;Details</h5>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-borderless">
+                                    <tbody>
+                                        <tr><th>User ID #</th><td id="u_id">-</td></tr>
+                                        <tr><th>Name</th><td id="u_name">-</td></tr>
+                                        <tr><th>Username</th><td id="u_username">-</td></tr>
+                                        <tr><th>Email</th><td id="u_email">-</td></tr>
+                                        <tr><th>User Role</th><td id="u_role">-</td></tr>
+                                        <tr><th>Account Status</th><td><span class="badge bg-success rounded-pill">Active</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" id="permissionsPanel" style="display: none;">
+                            <h5><i class="bi-shield-lock"></i>&nbsp;User Permissions</h5>
+                            <div class="table-responsive">
+                                <table class="table table-md table-striped">
+                                    <thead class="bg-dark">
+                                        <tr><th>Permission</th><th class="text-center">Status</th><th class="text-center">Action</th></tr>
+                                    </thead>
+                                    <tbody class="align-middle" id="permissionsBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; PNG UNRE Loans Management System (Demo) 2024</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/demo.js"></script>
+    <script src="assets/js/data-engine.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const loaded = await loadDatabase();
+            if (!loaded) return;
+            const urlParams = new URLSearchParams(window.location.search);
+            const userID = urlParams.get('id') || "2200002";
+            const user = DB.users.find(u => u.userID == userID);
+            if (!user) { alert("User not found"); window.location.href = "users.html"; return; }
+            const roles = { 1: "Super Administrator", 2: "Executive Employee", 3: "Officer Employee", 4: "Customer" };
+            document.getElementById('u_id').innerText = user.userID;
+            document.getElementById('u_name').innerText = `${user.lastname}, ${user.firstname}`;
+            document.getElementById('u_username').innerText = user.username;
+            document.getElementById('u_email').innerText = `${user.username}@unre.ac.pg`;
+            document.getElementById('u_role').innerText = roles[user.roleID];
+            if (user.roleID === 3 || user.roleID === 2) {
+                document.getElementById('permissionsPanel').style.display = 'block';
+                renderPermissions();
+            }
+        });
+        function renderPermissions() {
+            const permissions = [
+                { key: 'add_loan', label: 'Add Loan Data', icon: 'bi-plus-circle', status: 1 },
+                { key: 'edit_loan', label: 'Edit Loan Data', icon: 'bi-pencil-square', status: 1 },
+                { key: 'remove_loan', label: 'Remove Loan Data', icon: 'bi-trash', status: 1 },
+                { key: 'update_loan_stat', label: 'Updating Loan Status', icon: 'bi-pencil-square', status: 1 },
+                { key: 'add_payment', label: 'Add Payment Data', icon: 'bi-plus-circle', status: 1 },
+                { key: 'edit_payment', label: 'Edit Payment Data', icon: 'bi-pencil-square', status: 1 },
+                { key: 'remove_payment', label: 'Remove Payment Data', icon: 'bi-trash', status: 1 },
+                { key: 'add_customer', label: 'Add Customer Data', icon: 'bi-plus-circle', status: 1 },
+                { key: 'edit_customer', label: 'Edit Customer Data', icon: 'bi-pencil-square', status: 1 }
+            ];
+            const tbody = document.getElementById('permissionsBody');
+            permissions.forEach(p => {
+                const statusBadge = p.status === 1 ? `<span class="badge bg-success rounded-pill">Allowed</span>` : `<span class="badge bg-danger rounded-pill">Denied</span>`;
+                const btnClass = p.status === 1 ? 'btn-outline-secondary' : 'btn-outline-primary';
+                const btnIcon = p.status === 1 ? 'bi-x-circle' : 'bi-check2-circle';
+                const btnText = p.status === 1 ? 'Deny' : 'Allow';
+                tbody.innerHTML += `<tr><td><i class="${p.icon}"></i>&nbsp;${p.label}</td><td class="text-center">${statusBadge}</td><td class="text-center"><button type="button" class="btn btn-sm btn-block ${btnClass}" onclick="togglePermission(this)"><i class="${btnIcon}"></i>&nbsp;${btnText}</button></td></tr>`;
+            });
+        }
+        function togglePermission(btn) {
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="bi-hourglass-split"></i>&nbsp;...';
+            btn.disabled = true;
+            setTimeout(() => {
+                const row = btn.closest('tr');
+                const statusCell = row.cells[1];
+                if (btn.innerHTML.includes('Allow') || originalText.includes('Allow')) {
+                    statusCell.innerHTML = `<span class="badge bg-success rounded-pill">Allowed</span>`;
+                    btn.className = 'btn btn-sm btn-block btn-outline-secondary';
+                    btn.innerHTML = '<i class="bi-x-circle"></i>&nbsp;Deny';
+                } else {
+                    statusCell.innerHTML = `<span class="badge bg-danger rounded-pill">Denied</span>`;
+                    btn.className = 'btn btn-sm btn-block btn-outline-primary';
+                    btn.innerHTML = '<i class="bi-check2-circle"></i>&nbsp;Allow';
+                }
+                btn.disabled = false;
+            }, 500);
+        }
+    </script>
+</body>
+</html>

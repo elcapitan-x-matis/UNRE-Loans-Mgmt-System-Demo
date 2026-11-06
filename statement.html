@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Transaction Statement | UNRE LMS Portal</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/demo.css">
+    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+</head>
+<body class="sb-nav-fixed" id="bodyBg">
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="dashboard.html"><i class="bi-shield-check text-success"></i> UNRE | LMS</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="bi-list menu-btn"></i></button>
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi-person-circle"></i>&nbsp;Hi, <span id="topbarUserName">User</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="bi-person-circle"></i>&nbsp;User Credentials</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi-key"></i>&nbsp;Change Password</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="bi-arrow-right-circle"></i>&nbsp;Sign Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+                <div class="sb-sidenav-menu"><div class="nav" id="dynamicSidebar"></div></div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    <i class="bi-person"></i>&nbsp;<span id="sidebarUserName">User</span>
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1>Transaction History</h1>
+                        <small class="text-muted" id="header_customer_name">-</small>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                <a href="customers.html" role="button" class="btn btn-sm btn-primary"><i class="bi-arrow-left-circle"></i>&nbsp;Back</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header text-end">
+                                    <div class="btn-group me-2">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="printJS({ printable: 'statementReport', type: 'html', header: 'Transaction Statement'})"><i class="bi-printer"></i>&nbsp;Print</button>
+                                        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filterQuery"><i class="bi-funnel"></i>&nbsp;Filter Activity</button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <section id="statementReport">
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <img src="assets/favicon/android-chrome-192x192.png" class="img-fluid rounded-circle" width="100" height="100">
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <p class="text-muted"><i>
+                                                    Papua New Guinea University of Natural Resources and Environment<br>
+                                                    Christmas Club A/C<br>
+                                                    Private Mail Bag Service<br>
+                                                    Kokopo<br>
+                                                    East New Britain Province
+                                                </i></p>
+                                            </div>
+                                        </div>
+
+                                        <h4>Statement</h4><hr>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-borderless">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Statement No.</th>
+                                                        <td>12345678</td>
+                                                        <th class="text-end">Statement Date</th>
+                                                        <td id="stmt_date">-</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Customer</th>
+                                                        <td id="stmt_customer">-</td>
+                                                        <td colspan="2"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <div data-bs-spy="scroll" data-bs-offset="0" class="scrollspy" tabindex="0">
+                                                <table class="table table-sm table-striped" id="statementQueryTable">
+                                                    <thead class="bg-dark text-center">
+                                                        <tr><th>Date</th><th>Ref No.</th><th>Description</th><th>Charges</th><th>Payments</th><th>Balance</th></tr>
+                                                    </thead>
+                                                    <tfoot class="bg-dark">
+                                                        <tr class="text-center"><th>Date</th><th>Ref No.</th><th>Description</th><th>Charges</th><th>Payments</th><th>Balance</th></tr>
+                                                        <tr class="bg-light">
+                                                            <th class="text-center" id="stmt_final_date">-</th>
+                                                            <th colspan="4" class="text-end">Final Charge</th>
+                                                            <th class="text-center" id="stmt_final_balance">-</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <tbody class="text-center" id="stmt_tbody"></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div class="card-footer text-end">
+                                    <div class="btn-group me-2">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="printJS({ printable: 'statementReport', type: 'html', header: 'Transaction Statement'})"><i class="bi-printer"></i>&nbsp;Print</button>
+                                        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#filterQuery"><i class="bi-funnel"></i>&nbsp;Filter Activity</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; PNG UNRE Loans Management System (Demo) 2024</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal fade" id="filterQuery" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Filter Transaction Activity</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form onsubmit="handleMockFilter(event)">
+                    <div class="modal-body">
+                        <div class="row text-start">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Activity From&nbsp;<i class="bi-asterisk alertMessage"></i></label>
+                                    <input type="date" id="activityFrom" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Activity To&nbsp;<i class="bi-asterisk alertMessage"></i></label>
+                                    <input type="date" id="activityTo" class="form-control form-control-sm" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group me-2">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="bi-search"></i>&nbsp;Query</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal"><i class="bi-x-circle"></i>&nbsp;Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <script src="assets/js/demo.js"></script>
+    <script src="assets/js/data-engine.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const loaded = await loadDatabase();
+            if (!loaded) return;
+            const customerID = 246;
+            const customer = getCustomerDetails(customerID);
+            document.getElementById('header_customer_name').innerText = `${customer.lastname}, ${customer.firstname}`;
+            document.getElementById('stmt_date').innerText = date_toText(new Date().toISOString());
+            document.getElementById('stmt_customer').innerHTML = `${customer.lastname}, ${customer.firstname}<br>${customer.address}<br>${customer.email}`;
+            const customerTransactions = DB.transactions.filter(t => t.customerID == customerID);
+            renderStatementRows(customerTransactions);
+            document.getElementById('activityFrom').value = "2015-01-01";
+            document.getElementById('activityTo').value = "2024-12-31";
+        });
+        function renderStatementRows(transactions) {
+            const tbody = document.getElementById('stmt_tbody');
+            tbody.innerHTML = '';
+            let lastBalance = 0; let lastDate = '-';
+            transactions.forEach(t => {
+                const loan = DB.loans.find(l => l.transactionID == t.transactionID);
+                let row = '';
+                if (loan && (loan.status === "Released" || loan.status === "Completed")) {
+                    row = `<tr><td>${short_date_toText(t.date)}</td><td>${loan.loanID}</td><td>${t.memo}</td><td>${format_number(loan.total)}</td><td>&nbsp;</td><td>${format_number(t.balance)}</td></tr>`;
+                    lastBalance = t.balance; lastDate = t.date;
+                } else if (t.memo.includes("Payment")) {
+                    row = `<tr><td>${short_date_toText(t.date)}</td><td>P1/2015</td><td>${t.memo}</td><td>&nbsp;</td><td>${format_number(155.47)}</td><td>${format_number(t.balance)}</td></tr>`;
+                    lastBalance = t.balance; lastDate = t.date;
+                }
+                if (row) tbody.innerHTML += row;
+            });
+            document.getElementById('stmt_final_date').innerText = short_date_toText(lastDate);
+            document.getElementById('stmt_final_balance').innerText = format_number(lastBalance);
+        }
+        function handleMockFilter(event) {
+            event.preventDefault();
+            const from = document.getElementById('activityFrom').value;
+            const to = document.getElementById('activityTo').value;
+            const allTx = DB.transactions.filter(t => t.customerID == 246);
+            const filtered = allTx.filter(t => t.date >= from && t.date <= to);
+            renderStatementRows(filtered);
+            const modal = bootstrap.Modal.getInstance(document.getElementById('filterQuery'));
+            modal.hide();
+        }
+    </script>
+</body>
+</html>

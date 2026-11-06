@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Customer Profile | UNRE LMS Portal</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+    <link href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/demo.css">
+</head>
+<body class="sb-nav-fixed" id="bodyBg">
+
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="dashboard.html"><i class="bi-shield-check text-success"></i> UNRE | LMS</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="bi-list menu-btn"></i></button>
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi-person-circle"></i>&nbsp;Hi, <span id="topbarUserName">User</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="bi-person-circle"></i>&nbsp;User Credentials</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi-key"></i>&nbsp;Change Password</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="bi-arrow-right-circle"></i>&nbsp;Sign Out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+                <div class="sb-sidenav-menu"><div class="nav" id="dynamicSidebar"></div></div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    <i class="bi-person"></i>&nbsp;<span id="sidebarUserName">User</span>
+                </div>
+            </nav>
+        </div>
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h2>Customer Profile</h2>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                <a role="button" class="btn btn-sm btn-outline-primary" href="customer-edit.html"><i class="bi-pencil-square"></i>&nbsp;Edit</a>
+                                <a role="button" class="btn btn-sm btn-primary" href="statement.html"><i class="bi-book"></i>&nbsp;Transaction Activity</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <th colspan="2"><h5><i class="bi-info-circle"></i>&nbsp;Details</h5></th>
+                                            <th colspan="2"><h5><i class="bi-telephone"></i>&nbsp;Contacts</h5></th>
+                                        </tr>
+                                        <tr>
+                                            <th>Customer PO#</th>
+                                            <td id="c_customerID">-</td>
+                                            <th>Email</th>
+                                            <td id="c_email">-</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td id="c_name">-</td>
+                                            <th>Address</th>
+                                            <td id="c_address">-</td>
+                                        </tr>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                            <td>&nbsp;</td>
+                                            <th>Phone 1</th>
+                                            <td id="c_phone1">-</td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">&nbsp;</th>
+                                            <th>Phone 2</th>
+                                            <td id="c_phone2">-</td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">&nbsp;</th>
+                                            <th>Phone 3</th>
+                                            <td id="c_phone3">-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h5><i class="bi-clock-history"></i>&nbsp;Loan History</h5>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newSale"><i class="bi-plus-circle"></i>&nbsp;New Loan</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table table-md table-striped" id="customerLoansTable" width="100%" cellspacing="0">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>Ref No.</th>
+                                            <th>Status</th>
+                                            <th>Date Released</th>
+                                            <th>Duration</th>
+                                            <th>Payable Periods</th>
+                                            <th>Total Amount</th>
+                                            <th>Amount Due</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot class="text-center">
+                                        <tr>
+                                            <th>Ref No.</th>
+                                            <th>Status</th>
+                                            <th>Date Released</th>
+                                            <th>Duration</th>
+                                            <th>Payable Periods</th>
+                                            <th>Total Amount</th>
+                                            <th>Amount Due</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; PNG UNRE Loans Management System (Demo) 2024</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- New Loan Modal (Mock) -->
+    <div class="modal fade" id="newSale" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_customer_name">New Loan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form onsubmit="handleMockNewLoan(event)">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label>Ref No.&nbsp;<i class="bi-asterisk alertMessage"></i></label>
+                                    <input type="text" class="form-control form-control-sm" value="00000015" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Purpose of loan</label>
+                                    <textarea class="form-control form-control-sm" rows="4"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <h5>Loan Details</h5>
+                                <div class="form-group">
+                                    <label>Amount&nbsp;<i class="bi-asterisk alertMessage"></i></label>
+                                    <input type="number" class="form-control form-control-sm" id="m_amount" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Total Interest Added&nbsp;<i class="bi-asterisk alertMessage"></i></label>
+                                    <input type="number" class="form-control form-control-sm" id="m_interest" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Loan Period&nbsp;<i class="bi-asterisk alertMessage"></i></label>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <input type="number" class="form-control form-control-sm" required>
+                                        <span class="input-group-text input-group-text-sm">Year(s)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card card-body text-center mb-3">
+                                    <h5>Total Payable Amount</h5>
+                                    <h3 class="display-6" id="m_total_payable">0.00</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group me-2">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="bi-save"></i>&nbsp;Record</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal"><i class="bi-x-circle"></i>&nbsp;Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.min.js"></script>
+    
+    <script src="assets/js/demo.js"></script>
+    <script src="assets/js/data-engine.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const loaded = await loadDatabase();
+            if (!loaded) return;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const customerID = urlParams.get('id') || "246"; // Default to James Watson
+
+            const customer = getCustomerDetails(customerID);
+            if (!customer) { alert("Customer not found!"); window.location.href = "customers.html"; return; }
+
+            // Populate Customer Details
+            document.getElementById('c_customerID').innerText = customer.customerID;
+            document.getElementById('c_name').innerText = `${customer.lastname}, ${customer.firstname}`;
+            document.getElementById('c_email').innerText = customer.email;
+            document.getElementById('c_address').innerText = customer.address;
+            document.getElementById('c_phone1').innerText = customer.phone1 || "&nbsp;";
+            document.getElementById('c_phone2').innerText = customer.phone2 || "&nbsp;";
+            document.getElementById('c_phone3').innerText = customer.phone3 || "&nbsp;";
+            
+            document.getElementById('modal_customer_name').innerText = `New Loan; ${customer.lastname}, ${customer.firstname}`;
+
+            // Populate Loan History DataTable
+            const customerLoans = DB.loans.filter(l => {
+                const t = getTransaction(l.transactionID);
+                return t && t.customerID == customerID;
+            }).map(l => {
+                return {
+                    ...l,
+                    statusBadge: loan_status(l.status),
+                    dateReleased: short_date_toText(l.date_released),
+                    f_total: format_number(l.total),
+                    f_due: format_number(l.amount_due)
+                };
+            });
+
+            $('#customerLoansTable').DataTable({
+                data: customerLoans,
+                columns: [
+                    { data: 'loanID', className: 'text-center', render: function(d){ return `<a href="loan-view.html?id=${d}">${d}&nbsp;<i class="bi-arrow-right-circle"></i></a>` } },
+                    { data: 'statusBadge', className: 'text-center' },
+                    { data: 'dateReleased', className: 'text-center' },
+                    { data: 'duration', className: 'text-center', render: function(d){ return `${d} year(s)` } },
+                    { data: 'payments_period', className: 'text-center' },
+                    { data: 'f_total', className: 'text-center' },
+                    { data: 'f_due', className: 'text-center' }
+                ],
+                dom: 'frtip',
+                pageLength: 10
+            });
+        });
+
+        // Real-time mock calculation for the New Loan Modal
+        document.getElementById('m_amount').addEventListener('keyup', calcMockLoan);
+        document.getElementById('m_interest').addEventListener('keyup', calcMockLoan);
+        
+        function calcMockLoan() {
+            const amt = parseFloat(document.getElementById('m_amount').value) || 0;
+            const int = parseFloat(document.getElementById('m_interest').value) || 0;
+            document.getElementById('m_total_payable').innerText = format_number(amt + int);
+        }
+
+        function handleMockNewLoan(event) {
+            event.preventDefault();
+            alert("Mock New Loan Recorded!");
+            bootstrap.Modal.getInstance(document.getElementById('newSale')).hide();
+        }
+    </script>
+</body>
+</html>
