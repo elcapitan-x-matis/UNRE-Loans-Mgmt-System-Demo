@@ -3,14 +3,51 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Sign In | UNRE LMS Portal</title>
+    <title>Welcome | UNRE LMS Portal</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/demo.css">
     <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    
+    <style>
+        .landing-hero {
+            background: linear-gradient(135deg, rgba(1, 124, 22, 0.9) 0%, rgba(1, 80, 22, 0.9) 100%);
+            color: white;
+            padding: 100px 0;
+            margin-bottom: 40px;
+        }
+        .landing-hero h1 {
+            color: white;
+            font-weight: 300;
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: #017c16;
+            margin-bottom: 20px;
+        }
+        .arch-step {
+            text-align: center;
+            padding: 20px;
+        }
+        .arch-step i {
+            font-size: 2.5rem;
+            color: #956a00;
+            margin-bottom: 15px;
+        }
+        .arch-arrow {
+            font-size: 2rem;
+            color: #adb5bd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 768px) {
+            .arch-arrow { transform: rotate(90deg); margin: 10px 0; }
+        }
+    </style>
 </head>
-<body id="bodyBg">
+<body id="bodyBg" style="background-image: none; background-color: #f8f9fa;">
 
     <!-- DEMO BANNER -->
     <div id="demoBanner">
@@ -18,101 +55,171 @@
         <button type="button" class="btn-close" aria-label="Close" onclick="document.getElementById('demoBanner').style.display='none';"></button>
     </div>
 
-    <div id="layoutAuthentication">
-        <div id="layoutAuthentication_content">
-            <main>
-                <div class="container">
-                    <div class="row justify-content-center align-items-center">
-                        
-                        <div class="col-md-12 text-center mb-4">
-                            <img src="assets/favicon/android-chrome-192x192.png" class="img-fluid rounded-circle mb-2" width="60" height="60" alt="Logo">
-                            <br>
-                            <small class="text-muted">Papua New Guinea</small>
-                            <h2 class="display-5 mt-3" style="margin-top: 0 !important">University of Natural Resources & Environment</h2>
-                            <p class="lead">Bursary | LMS Portal (Demo)</p>
-                            <hr>
-                        </div>
+    <!-- Top Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi-shield-check text-success"></i> UNRE | LMS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#landingNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="landingNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#architecture">Architecture</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#roles">Roles</a></li>
+                    <li class="nav-item ms-3">
+                        <a class="btn btn-primary" href="login.html"><i class="bi-box-arrow-in-right"></i>&nbsp;Sign In</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-                        <div class="col-xl-4 col-lg-6 col-md-8 col-sm-10 col-xs-12">
-                            <nav>
-                                <div class="nav nav-pills nav-justified mb-3" id="nav-tab" role="tablist">
-                                    <button class="nav-link active" id="nav-staffadmin-login-tab" data-bs-toggle="tab" data-bs-target="#nav-staffadmin-login" type="button" role="tab" aria-selected="true">Staff/Admin</button>
-                                    <button class="nav-link" id="nav-customer-login-tab" data-bs-toggle="tab" data-bs-target="#nav-customer-login" type="button" role="tab" aria-selected="false">Customer</button>
-                                </div>
-                            </nav>
+    <!-- Hero Section -->
+    <header class="landing-hero text-center">
+        <div class="container">
+            <img src="assets/favicon/android-chrome-192x192.png" class="img-fluid rounded-circle mb-4" width="100" height="100" alt="Logo" style="background: white; padding: 10px;">
+            <h1 class="display-3">UNRE Staff Loan Management System</h1>
+            <p class="lead mb-4">A modern, secure, and automated platform for the PNG UNRE Bursary Department.</p>
+            <a href="login.html" class="btn btn-light btn-lg text-success fw-bold"><i class="bi-box-arrow-in-right"></i>&nbsp;Enter the Portal</a>
+        </div>
+    </header>
 
-                            <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-staffadmin-login" role="tabpanel">
-                                    <div class="card shadow-lg border-0 rounded-lg mt-5" style="margin-top: 0 !important">
-                                        <div class="card-header text-center">
-                                            <small class="text-muted">Staff/Admin</small>
-                                            <h5 class="display-2">Sign In</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <form onsubmit="handleMockLogin(event, 'staff')">
-                                                <div class="form-floating mb-3">
-                                                    <input class="form-control" id="username" type="text" placeholder="Username" value="admin" required />
-                                                    <label for="username">Username (Try: admin)</label>
-                                                </div>
-                                                <div class="form-floating mb-3">
-                                                    <input class="form-control" id="password" type="password" placeholder="Password" value="password" required />
-                                                    <label for="password">Password</label>
-                                                </div>
-                                                <div class="form-group">
-                                                    <button class="btn btn-lg btn-block btn-primary w-100" type="submit">
-                                                        Go&nbsp;<i class="bi-arrow-right-circle"></i>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+    <!-- System Overview -->
+    <section class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mb-4">System Overview</h2>
+                <p class="text-muted" style="font-size: 1.1rem;">
+                    The UNRE LMS is a full-stack web application designed to replace manual, spreadsheet-based loan tracking. It provides a centralized, real-time digital platform that ensures data integrity, automates complex financial calculations, and enhances the user experience for both administrators and staff members.
+                </p>
+            </div>
+        </div>
+    </section>
 
-                                <div class="tab-pane fade" id="nav-customer-login" role="tabpanel">
-                                    <div class="card shadow-lg border-0 rounded-lg mt-5" style="margin-top: 0 !important">
-                                        <div class="card-header text-center">
-                                            <small class="text-muted">Customer</small>
-                                            <h5 class="display-2">Sign In</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <form onsubmit="handleMockLogin(event, 'customer')">
-                                                <div class="form-floating mb-3">
-                                                    <input class="form-control" id="customerID" type="text" placeholder="Your PO#" value="246" required />
-                                                    <label for="customerID">Your PO# (Try: 246)</label>
-                                                </div>
-                                                <div class="form-floating mb-3">
-                                                    <input class="form-control" id="custpassword" type="password" placeholder="Password" value="password" required />
-                                                    <label for="custpassword">Password</label>
-                                                </div>
-                                                <div class="form-group">
-                                                    <button class="btn btn-lg btn-block btn-primary w-100" type="submit">
-                                                        Go&nbsp;<i class="bi-arrow-right-circle"></i>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+    <!-- Core Features -->
+    <section id="features" class="bg-white py-5 mb-5 shadow-sm">
+        <div class="container">
+            <h2 class="text-center mb-5">Core Features</h2>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <i class="bi bi-calculator feature-icon"></i>
+                    <h4>Automated Calculations</h4>
+                    <p class="text-muted">Instantly calculates loan totals, periodic payments, and penalty rates based on your inputs.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <i class="bi bi-calendar-check feature-icon"></i>
+                    <h4>Payment Scheduling</h4>
+                    <p class="text-muted">Automatically generates a complete repayment schedule when a loan is released.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <i class="bi bi-shield-lock feature-icon"></i>
+                    <h4>Secure Access</h4>
+                    <p class="text-muted">Granular role-based permissions ensure users only see what they are authorized to.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <i class="bi bi-file-earmark-spreadsheet feature-icon"></i>
+                    <h4>Bulk Importing</h4>
+                    <p class="text-muted">Save time by importing large batches of loans, payments, or customers via CSV.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <i class="bi bi-clock-history feature-icon"></i>
+                    <h4>Audit Trail</h4>
+                    <p class="text-muted">Comprehensive logging of all user login attempts and system activities for security.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <i class="bi bi-printer feature-icon"></i>
+                    <h4>Printable Reports</h4>
+                    <p class="text-muted">Generate professional invoices and transaction statements with a single click.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                                <p id="loginAlert" class="text-center alertMessage mt-3"></p>
-                            </div>
+    <!-- Architecture Flow -->
+    <section id="architecture" class="container mb-5">
+        <h2 class="text-center mb-5">Application Architecture</h2>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-2 arch-step">
+                <i class="bi bi-person-lock"></i>
+                <h6>User Login</h6>
+                <small class="text-muted">Authentication</small>
+            </div>
+            <div class="col-md-1 arch-arrow"><i class="bi bi-arrow-right"></i></div>
+            
+            <div class="col-md-2 arch-step">
+                <i class="bi bi-shield-check"></i>
+                <h6>Role Verification</h6>
+                <small class="text-muted">RBAC Checks</small>
+            </div>
+            <div class="col-md-1 arch-arrow"><i class="bi bi-arrow-right"></i></div>
+            
+            <div class="col-md-2 arch-step">
+                <i class="bi bi-gear"></i>
+                <h6>Web App Modules</h6>
+                <small class="text-muted">PHP MVC</small>
+            </div>
+            <div class="col-md-1 arch-arrow"><i class="bi bi-arrow-right"></i></div>
+            
+            <div class="col-md-2 arch-step">
+                <i class="bi bi-database"></i>
+                <h6>Database Server</h6>
+                <small class="text-muted">MySQL</small>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who Has Access -->
+    <section id="roles" class="bg-white py-5 shadow-sm">
+        <div class="container">
+            <h2 class="text-center mb-5">Who Has Access?</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm" style="border-left: 4px solid #0d6efd !important;">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary"><i class="bi bi-shield-fill-check"></i> Super Administrator</h5>
+                            <p class="card-text text-muted small">Full system control. Manages user accounts, sets granular permissions for staff, and reviews system-wide activity and login logs.</p>
                         </div>
                     </div>
                 </div>
-            </main>
-        </div>
-        <div id="layoutAuthentication_footer">
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; PNG UNRE Loans Management System (Demo) 2024</div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm" style="border-left: 4px solid #198754 !important;">
+                        <div class="card-body">
+                            <h5 class="card-title text-success"><i class="bi bi-briefcase-fill"></i> Executive Employee</h5>
+                            <p class="card-text text-muted small">View-only access. Can review loan data, customer profiles, and generate transaction statements and reports.</p>
+                        </div>
                     </div>
                 </div>
-            </footer>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm" style="border-left: 4px solid #ffc107 !important;">
+                        <div class="card-body">
+                            <h5 class="card-title text-warning"><i class="bi bi-person-badge-fill"></i> Officer Employee (Bursary Staff)</h5>
+                            <p class="card-text text-muted small">The primary operators. Depending on permissions granted, they can add/edit loans, record payments, manage customers, and process bulk imports.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm" style="border-left: 4px solid #6c757d !important;">
+                        <div class="card-body">
+                            <h5 class="card-title text-secondary"><i class="bi bi-person-fill"></i> Customer (Staff Member)</h5>
+                            <p class="card-text text-muted small">Self-service portal. Can securely log in to view their own loan details, payment schedule, and transaction history.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 text-center text-muted">
+        <div class="container">
+            <p class="mb-1">Copyright &copy; PNG UNRE Loans Management System (Demo) 2024</p>
+            <small>Papua New Guinea University of Natural Resources and Environment</small>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/demo.js"></script>
 </body>
 </html>

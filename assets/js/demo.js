@@ -27,14 +27,15 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
     // 3. Mock Authentication / Session Guard
-    const isDashboard = window.location.pathname.includes('dashboard.html');
-    const isLogin = window.location.pathname.includes('index.html') || window.location.pathname === '/';
+    // We only protect the dashboard (and subsequent inner pages)
+    const protectedPages = ['dashboard.html', 'loans.html', 'customers.html', 'imports.html', 'users.html', 'logs.html', 'statement.html', 'my-transactions.html'];
+    const currentPage = window.location.pathname.split('/').pop();
     
     const mockUser = sessionStorage.getItem('demo_user');
 
-    // If trying to access dashboard without logging in
-    if (isDashboard && !mockUser) {
-        window.location.href = 'index.html';
+    // If trying to access a protected page without logging in
+    if (protectedPages.includes(currentPage) && !mockUser) {
+        window.location.href = 'login.html';
     }
 
     // If logged in, populate the Topbar and Sidebar user details
@@ -59,7 +60,7 @@ window.addEventListener('DOMContentLoaded', event => {
         logoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
             sessionStorage.removeItem('demo_user');
-            window.location.href = 'index.html';
+            window.location.href = 'login.html';
         });
     }
 });

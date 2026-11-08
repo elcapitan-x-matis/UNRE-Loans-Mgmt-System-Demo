@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Sign In | UNRE LMS Portal</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/demo.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+</head>
+<body id="bodyBg">
+
+    <!-- DEMO BANNER -->
+    <div id="demoBanner">
+        Static demo of the UNRE Staff Loan Management System. All data is simulated.
+        <button type="button" class="btn-close" aria-label="Close" onclick="document.getElementById('demoBanner').style.display='none';"></button>
+    </div>
+
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center align-items-center vh-100">
+                        
+                        <div class="col-md-12 text-center mb-4">
+                            <a href="index.html">
+                                <img src="assets/favicon/android-chrome-192x192.png" class="img-fluid rounded-circle mb-2" width="60" height="60" alt="Logo">
+                            </a>
+                            <br>
+                            <small class="text-muted">Papua New Guinea</small>
+                            <h2 class="display-5 mt-3" style="margin-top: 0 !important">University of Natural Resources & Environment</h2>
+                            <p class="lead">Bursary | LMS Portal (Demo)</p>
+                            <hr>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-6 col-md-8 col-sm-10 col-xs-12">
+                            <nav>
+                                <div class="nav nav-pills nav-justified mb-3" id="nav-tab" role="tablist">
+                                    <button class="nav-link active" id="nav-staffadmin-login-tab" data-bs-toggle="tab" data-bs-target="#nav-staffadmin-login" type="button" role="tab" aria-selected="true">Staff/Admin</button>
+                                    <button class="nav-link" id="nav-customer-login-tab" data-bs-toggle="tab" data-bs-target="#nav-customer-login" type="button" role="tab" aria-selected="false">Customer</button>
+                                </div>
+                            </nav>
+
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-staffadmin-login" role="tabpanel">
+                                    <div class="card shadow-lg border-0 rounded-lg mt-5" style="margin-top: 0 !important">
+                                        <div class="card-header text-center">
+                                            <small class="text-muted">Staff/Admin</small>
+                                            <h5 class="display-2">Sign In</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <form onsubmit="handleMockLogin(event, 'staff')">
+                                                <div class="form-floating mb-3">
+                                                    <input class="form-control" id="username" type="text" placeholder="Username" value="admin" required />
+                                                    <label for="username">Username (Try: admin)</label>
+                                                </div>
+                                                <div class="form-floating mb-3">
+                                                    <input class="form-control" id="password" type="password" placeholder="Password" value="password" required />
+                                                    <label for="password">Password</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button class="btn btn-lg btn-block btn-primary w-100" type="submit">
+                                                        Go&nbsp;<i class="bi-arrow-right-circle"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="nav-customer-login" role="tabpanel">
+                                    <div class="card shadow-lg border-0 rounded-lg mt-5" style="margin-top: 0 !important">
+                                        <div class="card-header text-center">
+                                            <small class="text-muted">Customer</small>
+                                            <h5 class="display-2">Sign In</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <form onsubmit="handleMockLogin(event, 'customer')">
+                                                <div class="form-floating mb-3">
+                                                    <input class="form-control" id="customerID" type="text" placeholder="Your PO#" value="246" required />
+                                                    <label for="customerID">Your PO# (Try: 246)</label>
+                                                </div>
+                                                <div class="form-floating mb-3">
+                                                    <input class="form-control" id="custpassword" type="password" placeholder="Password" value="password" required />
+                                                    <label for="custpassword">Password</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button class="btn btn-lg btn-block btn-primary w-100" type="submit">
+                                                        Go&nbsp;<i class="bi-arrow-right-circle"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p id="loginAlert" class="text-center alertMessage mt-3"></p>
+                            </div>
+                            <div class="text-center mt-3">
+                                <a href="index.html" class="text-muted small"><i class="bi-arrow-left"></i> Back to Home</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="layoutAuthentication_footer">
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; PNG UNRE Loans Management System (Demo) 2024</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/demo.js"></script>
+</body>
+</html>
